@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Space Chat Logo Animation</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      min-height: 100vh;
+      overflow: hidden;
+      background: radial-gradient(circle at center, #111a3a 0%, #050712 45%, #02030a 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: Arial, sans-serif;
+      color: white;
+    }
+
+    .stars {
+      position: fixed;
+      inset: 0;
+      background-image:
+        radial-gradient(white 1px, transparent 1px),
+        radial-gradient(#7dd3ff 1px, transparent 1px),
+        radial-gradient(#c084fc 1px, transparent 1px);
+      background-size: 120px 120px, 180px 180px, 240px 240px;
+      animation: moveStars 14s linear infinite;
+      opacity: 0.45;
+    }
+
+    @keyframes moveStars {
+      from { transform: translateY(0); }
+      to { transform: translateY(120px); }
+    }
+
+    .scene {
+      position: relative;
+      width: 360px;
+      height: 360px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .energy-line {
+      position: absolute;
+      width: 310px;
+      height: 230px;
+      border: 5px solid transparent;
+      border-top-color: #1ad7ff;
+      border-right-color: #b832ff;
+      border-radius: 55% 50% 48% 55%;
+      filter: drop-shadow(0 0 14px #1ad7ff) drop-shadow(0 0 24px #b832ff);
+      animation: drawLine 2s ease forwards, hideLine 1s ease forwards 2.2s;
+      transform: rotate(-8deg) scale(0.75);
+      opacity: 0;
+    }
+
+    @keyframes drawLine {
+      0% {
+        opacity: 0;
+        clip-path: inset(0 100% 0 0);
+        transform: rotate(-8deg) scale(0.7);
+      }
+      30% {
+        opacity: 1;
+      }
+      100% {
+        opacity: 1;
+        clip-path: inset(0 0 0 0);
+        transform: rotate(-8deg) scale(1);
+      }
+    }
+
+    @keyframes hideLine {
+      to {
+        opacity: 0;
+        transform: rotate(-8deg) scale(1.08);
+      }
+    }
+
+    .logo {
+      width: 330px;
+      opacity: 0;
+      transform: scale(0.55) rotate(-6deg);
+      filter: drop-shadow(0 0 0px #1ad7ff);
+      animation:
+        showLogo 1.3s ease forwards 1.8s,
+        floating 4s ease-in-out infinite 3.2s,
+        glowPulse 2.5s ease-in-out infinite 3.2s;
+      z-index: 2;
+    }
+
+    @keyframes showLogo {
+      0% {
+        opacity: 0;
+        transform: scale(0.55) rotate(-6deg);
+        filter: blur(12px) drop-shadow(0 0 0px #1ad7ff);
+      }
+      70% {
+        opacity: 1;
+        transform: scale(1.08) rotate(0deg);
+        filter: blur(0) drop-shadow(0 0 35px #1ad7ff);
+      }
+      100% {
+        opacity: 1;
+        transform: scale(1) rotate(0deg);
+        filter: blur(0) drop-shadow(0 0 22px #9b5cff);
+      }
+    }
+
+    @keyframes floating {
+      0%, 100% { transform: translateY(0) scale(1); }
+      50% { transform: translateY(-12px) scale(1.03); }
+    }
+
+    @keyframes glowPulse {
+      0%, 100% {
+        filter: drop-shadow(0 0 18px #1ad7ff) drop-shadow(0 0 26px #b832ff);
+      }
+      50% {
+        filter: drop-shadow(0 0 35px #1ad7ff) drop-shadow(0 0 55px #ff2bd6);
+      }
+    }
+
+    .light {
+      position: absolute;
+      width: 420px;
+      height: 420px;
+      border-radius: 50%;
+      background: conic-gradient(from 0deg, transparent, #1ad7ff55, transparent, #ff2bd655, transparent);
+      filter: blur(35px);
+      animation: rotateLight 5s linear infinite;
+      opacity: 0.45;
+    }
+
+    @keyframes rotateLight {
+      to { transform: rotate(360deg); }
+    }
+
+    .text {
+      position: absolute;
+      bottom: -20px;
+      font-size: 22px;
+      letter-spacing: 4px;
+      font-weight: 700;
+      opacity: 0;
+      animation: showText 1s ease forwards 3s;
+      text-shadow: 0 0 20px #1ad7ff;
+    }
+
+    @keyframes showText {
+      from {
+        opacity: 0;
+        transform: translateY(15px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @media (max-width: 500px) {
+      .scene {
+        width: 280px;
+        height: 280px;
+      }
+
+      .logo {
+        width: 260px;
+      }
+
+      .energy-line {
+        width: 245px;
+        height: 180px;
+      }
+
+      .text {
+        font-size: 18px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="stars"></div>
+
+  <div class="scene">
+    <div class="light"></div>
+    <div class="energy-line"></div>
+
+    <img src="logo.png" alt="Space Chat Logo" class="logo" />
+
+    <div class="text">SPACE CHAT</div>
+  </div>
+
+</body>
+</html>
